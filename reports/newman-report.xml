@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="FIT4110 Lab03 - Access Gate Core Contract Tests" tests="15" time="0.526">
+  <testsuite name="01_Functional / GET /health - Core service is alive" id="6bb866b8-bde7-4f4d-b91c-a3186dce9990" timestamp="2026-05-25T18:29:23.840Z" tests="2" failures="0" errors="0" time="0.082">
+    <testcase name="Status code is 200" time="0.082" classname="01FunctionalGetHealthCoreServiceIsAlive"/>
+    <testcase name="Health response identifies Core Business" time="0.082" classname="01FunctionalGetHealthCoreServiceIsAlive"/>
+  </testsuite>
+  <testsuite name="01_Functional / POST /access/check - allow or deny decision" id="af05e7a2-721c-45b5-b491-e999031aa3fa" timestamp="2026-05-25T18:29:23.840Z" tests="2" failures="0" errors="0" time="0.044">
+    <testcase name="Status code is 200" time="0.044" classname="01FunctionalPostAccessCheckAllowOrDenyDecision"/>
+    <testcase name="Decision response matches contract" time="0.044" classname="01FunctionalPostAccessCheckAllowOrDenyDecision"/>
+  </testsuite>
+  <testsuite name="01_Functional / GET /policies/access - list policy page" id="59f35cb4-f499-46ec-897c-e99eb6ea554a" timestamp="2026-05-25T18:29:23.840Z" tests="2" failures="0" errors="0" time="0.072">
+    <testcase name="Status code is 200" time="0.072" classname="01FunctionalGetPoliciesAccessListPolicyPage"/>
+    <testcase name="Policy page uses cursor contract" time="0.072" classname="01FunctionalGetPoliciesAccessListPolicyPage"/>
+  </testsuite>
+  <testsuite name="01_Functional / GET /policies/access/{policyId} - policy detail has discriminator rules" id="8f5c5546-6261-4e6e-8a76-85dbc878c6e4" timestamp="2026-05-25T18:29:23.840Z" tests="2" failures="0" errors="0" time="0.035">
+    <testcase name="Status code is 200" time="0.035" classname="01FunctionalGetPoliciesAccessPolicyIdPolicyDetailHasDiscriminatorRules"/>
+    <testcase name="Policy detail contains typed rules" time="0.035" classname="01FunctionalGetPoliciesAccessPolicyIdPolicyDetailHasDiscriminatorRules"/>
+  </testsuite>
+  <testsuite name="01_Functional / GET /decisions - list audit decisions" id="f65b80be-7cc9-46fd-a166-f5dbdb0b4c6e" timestamp="2026-05-25T18:29:23.840Z" tests="2" failures="0" errors="0" time="0.015">
+    <testcase name="Status code is 200" time="0.015" classname="01FunctionalGetDecisionsListAuditDecisions"/>
+    <testcase name="Decision page can be consumed for audit" time="0.015" classname="01FunctionalGetDecisionsListAuditDecisions"/>
+  </testsuite>
+  <testsuite name="02_Auth / POST /access/check - missing token returns 401 or 403" id="1601181e-bdee-46f0-a115-05dbf53bb1ae" timestamp="2026-05-25T18:29:23.840Z" tests="2" failures="0" errors="0" time="0.022">
+    <testcase name="Unauthorized request returns 401 or 403" time="0.022" classname="02AuthPostAccessCheckMissingTokenReturns401Or403"/>
+    <testcase name="Auth error follows Problem Details when a body is returned" time="0.022" classname="02AuthPostAccessCheckMissingTokenReturns401Or403"/>
+  </testsuite>
+  <testsuite name="02_Auth / POST /access/check - invalid token behavior is explicit" id="8e744c95-9131-48cb-8f11-ef064d9d5c22" timestamp="2026-05-25T18:29:23.840Z" tests="2" failures="0" errors="0" time="0.008">
+    <testcase name="Invalid token behavior is checked without forcing Prism auth response" time="0.008" classname="02AuthPostAccessCheckInvalidTokenBehaviorIsExplicit"/>
+    <testcase name="No Prefer header forces auth response" time="0.008" classname="02AuthPostAccessCheckInvalidTokenBehaviorIsExplicit"/>
+  </testsuite>
+  <testsuite name="03_Negative / POST /access/check - missing cardId validation error" id="5014ce1c-99b3-476a-8151-8715f37068c4" timestamp="2026-05-25T18:29:23.840Z" tests="2" failures="0" errors="0" time="0.043">
+    <testcase name="Invalid payload returns a client error" time="0.043" classname="03NegativePostAccessCheckMissingCardIdValidationError"/>
+    <testcase name="Validation error has Problem Details shape" time="0.043" classname="03NegativePostAccessCheckMissingCardIdValidationError"/>
+  </testsuite>
+  <testsuite name="03_Negative / POST /access/check - invalid direction enum" id="0d5f0292-9a95-4104-b710-7220aeff8398" timestamp="2026-05-25T18:29:23.840Z" tests="2" failures="0" errors="0" time="0.010">
+    <testcase name="Enum violation returns a client error" time="0.010" classname="03NegativePostAccessCheckInvalidDirectionEnum"/>
+    <testcase name="Error response is parseable by Access Gate" time="0.010" classname="03NegativePostAccessCheckInvalidDirectionEnum"/>
+  </testsuite>
+  <testsuite name="03_Negative / GET /policies/access - invalid limit query" id="3b8ea184-bb8d-48e9-b10f-153df153272a" timestamp="2026-05-25T18:29:23.840Z" tests="1" failures="0" errors="0" time="0.013">
+    <testcase name="Limit above maximum returns a client error" time="0.013" classname="03NegativeGetPoliciesAccessInvalidLimitQuery"/>
+  </testsuite>
+  <testsuite name="03_Negative / GET /policies/access/{policyId} - unknown policy returns 404" id="12fbceb0-be82-4eea-a574-05c65d0c3744" timestamp="2026-05-25T18:29:23.840Z" tests="2" failures="0" errors="0" time="0.024">
+    <testcase name="Unknown policy returns 404" time="0.024" classname="03NegativeGetPoliciesAccessPolicyIdUnknownPolicyReturns404"/>
+    <testcase name="Not found response is a problem object when present" time="0.024" classname="03NegativeGetPoliciesAccessPolicyIdUnknownPolicyReturns404"/>
+  </testsuite>
+  <testsuite name="04_Boundary_Reliability / GET /policies/access - boundary limit 1" id="455af55b-afd9-47f5-b667-51e44b729754" timestamp="2026-05-25T18:29:23.840Z" tests="1" failures="0" errors="0" time="0.021">
+    <testcase name="Boundary limit=1 returns a valid page" time="0.021" classname="04BoundaryReliabilityGetPoliciesAccessBoundaryLimit1"/>
+  </testsuite>
+  <testsuite name="04_Boundary_Reliability / POST /access/check - optional idempotencyKey is accepted" id="9e831081-b539-4bc9-9be1-3c4082a8f0b9" timestamp="2026-05-25T18:29:23.840Z" tests="2" failures="0" errors="0" time="0.011">
+    <testcase name="Nullable idempotencyKey is accepted by contract" time="0.011" classname="04BoundaryReliabilityPostAccessCheckOptionalIdempotencyKeyIsAccepted"/>
+    <testcase name="Response still includes decision fields" time="0.011" classname="04BoundaryReliabilityPostAccessCheckOptionalIdempotencyKeyIsAccepted"/>
+  </testsuite>
+  <testsuite name="05_Consumer_side_Smoke / POST Analytics /analytics/access-events - Gate sends hashed access event" id="8ffff458-3a16-45b1-a8f7-8728b868fc28" timestamp="2026-05-25T18:29:23.840Z" tests="3" failures="0" errors="0" time="0.121">
+    <testcase name="Analytics mock accepts access event" time="0.121" classname="05ConsumerSideSmokePostAnalyticsAnalyticsAccessEventsGateSendsHashedAccessEvent"/>
+    <testcase name="Gate can parse Analytics acknowledgement" time="0.121" classname="05ConsumerSideSmokePostAnalyticsAnalyticsAccessEventsGateSendsHashedAccessEvent"/>
+    <testcase name="Consumer sends privacy-safe cardIdHash only" time="0.121" classname="05ConsumerSideSmokePostAnalyticsAnalyticsAccessEventsGateSendsHashedAccessEvent"/>
+  </testsuite>
+  <testsuite name="06_Local_only_NonFunctional / POST /access/check - local SLA below 500ms" id="b5f25ea9-5bb4-4602-92b7-43c4537445b2" timestamp="2026-05-25T18:29:23.840Z" tests="2" failures="0" errors="0" time="0.005">
+    <testcase name="SLA assertion runs only against local Core service" time="0.005" classname="06LocalOnlyNonFunctionalPostAccessCheckLocalSlaBelow500Ms"/>
+    <testcase name="Access check remains contract-compatible" time="0.005" classname="06LocalOnlyNonFunctionalPostAccessCheckLocalSlaBelow500Ms"/>
+  </testsuite>
+</testsuites>

@@ -1,48 +1,49 @@
-# Reliability Checklist — FIT4110 Lab 03
+# Reliability Checklist - FIT4110 Lab 03
 
-Điền checklist này trước khi nộp Lab 03.
+Completed for Pair 10: Access Gate consumer with Core Business provider, plus Analytics consumer-side smoke test.
 
 ## 1. Functional tests
 
-- [ ] Có test cho endpoint health.
-- [ ] Có test happy path cho endpoint chính.
-- [ ] Có kiểm tra status code 2xx.
-- [ ] Có kiểm tra field quan trọng trong response.
-- [ ] Có ít nhất 1 test đọc dữ liệu danh sách hoặc chi tiết.
+- [x] Health endpoint is tested: `GET /health`.
+- [x] Main happy path is tested: `POST /access/check`.
+- [x] 2xx status codes are asserted.
+- [x] Important response fields are asserted: `decisionId`, `decision`, `policyId`, `checkedAt`.
+- [x] List/detail reads are tested: `GET /policies/access`, `GET /policies/access/{policyId}`, `GET /decisions`.
 
 ## 2. Auth tests
 
-- [ ] Có test thiếu token.
-- [ ] Có test sai token hoặc token rỗng.
-- [ ] Endpoint public được khai báo rõ nếu không cần auth.
-- [ ] Test thể hiện đúng expected status 401/403.
+- [x] Missing token is tested on `POST /access/check`.
+- [x] Invalid token behavior is tested without using `Prefer: code=401`.
+- [x] Public endpoint is explicit: `/health` has no security requirement.
+- [x] Expected unauthorized status is documented as 401/403 for local service.
 
 ## 3. Negative tests
 
-- [ ] Có test thiếu field bắt buộc.
-- [ ] Có test sai kiểu dữ liệu.
-- [ ] Có test sai enum hoặc giá trị ngoài miền.
-- [ ] Lỗi trả về theo cùng một error model.
+- [x] Missing required field is tested: missing `cardId`.
+- [x] Invalid enum is tested: `direction=SIDEWAYS`.
+- [x] Invalid query boundary is tested: `limit=101`.
+- [x] Error response model uses Problem Details with `status` between 400 and 599.
 
 ## 4. Boundary tests
 
-- [ ] Có test min/max hoặc dữ liệu sát ngưỡng.
-- [ ] Có test limit/pagination nếu endpoint có danh sách.
-- [ ] Có test payload lớn hoặc metadata thiếu.
-- [ ] Có ghi chú kỳ vọng xử lý dữ liệu biên.
+- [x] Pagination lower boundary is tested: `limit=1`.
+- [x] Pagination maximum is protected by negative test: `limit=101`.
+- [x] Nullable optional idempotency key is tested.
+- [x] Expected idempotency behavior is documented from negotiation issue #3.
 
-## 5. Reliability tests cơ bản
+## 5. Reliability tests
 
-- [ ] Có kiểm tra response time.
-- [ ] Có mô tả timeout mong muốn.
-- [ ] Có test hoặc ghi chú retry/idempotency nếu phù hợp.
-- [ ] Có consumer-side smoke test với ít nhất 1 mock của nhóm khác.
+- [x] SLA from negotiation issue #1 is represented: local `/access/check` should respond under 500ms.
+- [x] Timeout/fallback expectation is documented from negotiation issue #2.
+- [x] Retry/idempotency concern is covered with optional `idempotencyKey`.
+- [x] Consumer-side smoke test calls Analytics mock at `POST /analytics/access-events`.
 
 ## 6. Evidence
 
-- [ ] Collection export JSON.
-- [ ] Environment mock export JSON.
-- [ ] Environment local export JSON.
-- [ ] Newman report XML/HTML.
-- [ ] Test-case matrix đã điền.
-- [ ] Biên bản handshake đã điền.
+- [x] Collection export JSON: `postman/collections/access-gate-core.postman_collection.json`.
+- [x] Mock environment export JSON: `postman/environments/access-gate-core_mock.postman_environment.json`.
+- [x] Local environment export JSON: `postman/environments/access-gate-core_local.postman_environment.json`.
+- [x] Newman report target: `reports/newman-report.xml` and `reports/newman-report.html`.
+- [x] Contract lint report target: `reports/contract-lint-report.txt`.
+- [x] Test-case matrix is completed: `templates/test-case-matrix.csv`.
+- [x] Consumer-provider handshake is completed: `templates/consumer-provider-handshake.md`.
